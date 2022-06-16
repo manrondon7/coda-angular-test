@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MiaAuthInterceptor, MiaAuthModule, MIA_AUTH_PROVIDER } from '@agencycoda/mia-auth';
@@ -11,14 +10,18 @@ import { MiaCoreModule, MIA_GOOGLE_STORAGE_PROVIDER } from '@agencycoda/mia-core
 import { MiaTableModule } from '@agencycoda/mia-table';
 import { MiaFormModule } from '@agencycoda/mia-form';
 import { MiaLoadingModule } from '@agencycoda/mia-loading';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ClientService } from './services/client.service';
+import { MatButtonModule } from '@angular/material/button';
+import { ConfirmDialogComponent } from './components/confirm-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
 
     // Agency Coda Modules
@@ -27,10 +30,14 @@ import { MiaLoadingModule } from '@agencycoda/mia-loading';
     MiaTableModule,
     MiaLoadingModule,
     MiaFormModule,
+
+    // Other Modules
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [
-    { 
-      provide: MIA_AUTH_PROVIDER, 
+    {
+      provide: MIA_AUTH_PROVIDER,
       useValue: {
         baseUrl: environment.baseUrl
       }
@@ -45,7 +52,8 @@ import { MiaLoadingModule } from '@agencycoda/mia-loading';
       useValue: {
         bucket: environment.cloudStorageBucket
       }
-    }
+    },
+    ClientService
   ],
   bootstrap: [AppComponent]
 })
